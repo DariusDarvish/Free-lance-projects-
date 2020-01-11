@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import webbrowser
+import pyautogui
+import time
+import os
+
+counter=0
+go=0
+
+#webbrowser.open('https://soundcloud.com/ashwin-chandrasekhar-4/sets/warm-winter-ep')
+while go < 2:
+#counter+=1
+
+
+    webbrowser.open('https://soundcloud.com/ashwin-chandrasekhar-4/sets/warm-winter-ep')
+    print(pyautogui.size())
+    print(counter)
+    counter+=1
+    time.sleep(5)
+    pyautogui.click(110,700 , duration = 1)
+    time.sleep(5)
+    pyautogui.click(1366,1 , duration = 1)
+
+    #On linux distruburions 
+    
+    os.system(ifconfig eth0)
+    os.system(ifconfig eth0 down)
+    os.system(macchanger -r eth0)
+    os.system(ifconfig eht0 up)
