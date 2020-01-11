@@ -1,0 +1,340 @@
+#!/usr/bin/env python3
+import pandas as pd
+import openpyxl
+from openpyxl import load_workbook
+
+
+
+import pandas as pd
+from openpyxl import load_workbook
+core=[]
+
+data= pd.read_excel("C:/Users/Darius Darvish/Downloads/190911_TSF_TSF(Reevaluated)(kiel) (1).xlsx")
+new=data["Information"].str.split(";",n=-1,expand=True)
+#intial break up by semicolon
+data["Acid"]=new[0]
+data["LeakRate"]=new[1]
+data["something"]=new[2]
+data["P no Acid"]=new[3]
+data["P gases"]=new[4]
+data["Total CO2"]=new[5]
+data["EXP"]=new[6]
+data["After EXp"]=new[7]
+data["MESS"]=new[8]
+data["Mess2"]=new[9]
+data["VM1"]=new[10]
+data["PC"]=new[11]
+data["Init"]=new[12]
+data["floatsss"]=new[13]
+data["pressADJ"]=new[14]
+#data["mBar"]=new[15]
+data.drop(columns=["Information"], inplace = True)
+# df1=data[['Acid','LeakRate','something','P no Acid','P gases','Total CO2','EXP','After EXp','MESS','Mess2','VM1','PC','Init',
+#          'float','pressADJ']]
+# print(df1)
+new=data["Acid"].str.split(':', n=-1, expand=True)
+data['Acids']=new[0]
+data['Temp']=new[1]
+data.drop(columns=["Acid"], inplace=True)
+new=data['LeakRate'].str .split(':',n=-1, expand=True)
+data['Leakrate']=new[0]
+data['LeakrateInt']=new[1]
+data.drop(columns=["LeakRate"], inplace=True)
+new=data["P no Acid"].str.split(':',n=-1, expand=True)
+data['P no acid']=new[0]
+data['P no acid Int']=new[1]
+data.drop(columns=["P no Acid"], inplace=True)
+new=data["P gases"].str.split(':', n=-1, expand=True)
+data['P Gases']=new[0]
+data['P Gases Int']=new[1]
+data.drop(columns=["P gases"], inplace=True)
+new=data["Total CO2"].str.split(':', n=-1, expand=True)
+data['TotalCO2']=new[0]
+data['TotalCO2Int']=new[1]
+data.drop(columns=["Total CO2"], inplace=True)
+new=data["EXP"].str.split(':', n=-1, expand=True)
+data['ExP']=new[0]
+data['ExPInt']=new[1]
+data.drop(columns=["EXP"], inplace=True)
+new=data["After EXp"].str.split(':', n=-1, expand=True)
+data['After ExP']=new[0]
+data['After ExP Int']=new[1]
+data.drop(columns=["After EXp"], inplace=True)
+new=data["MESS"].str.split(':', n=-1, expand=True)
+data['Refre']=new[0]
+data['test2']=new[1]
+data.drop(columns=["MESS"], inplace=True)
+new=data['test2'].str.split(' ',n=-1, expand=True)
+data['L or R1']=new[1]
+data['mBar']=new[2]
+data['floatvalue']=new[3]
+data['Pos']=new[6]
+data['floatvalue2']=new[7]
+data.drop(columns=["test2"], inplace=True)
+new=data["Mess2"].str.split(':', n=-1, expand=True)
+data['Refre skipped']=new[0]
+data['other']=new[1]
+new=data['other'].str.split(' ',n=-1, expand=True)
+data['L or R2']=new[1]
+data['mBar2']=new[2]
+data['float after mbar']=new[3]
+data['pos2']=new[6]
+data['float after pos2']=new[7]
+data.drop(columns=["Mess2"], inplace=True)
+data.drop(columns=["other"], inplace=True)
+new=data["VM1"].str.split(':',n=-1,expand=True)
+data['vm1']=new[0]
+data['vm1 int']=new[1]
+new=data["vm1"].str.split('[',n=-1, expand=True)
+data['vm1a']=new[0]
+data['vm1b']=new[1]
+data.drop(columns=['vm1'], inplace=True)
+data.drop(columns=['VM1'],inplace=True)
+new=data["PC"].str.split(':',n=-1,expand=True)
+data['tESt1']=new[0]
+data['Init init float']=new[1]
+newtest1=data['tESt1'].str.split('[',n=-1,expand=True)
+data['pc']=newtest1[0]
+data['int after pc']=newtest1[1]
+newtest3=data['int after pc'].str.split(']',n=-1,expand=True)
+data['int after pc']=newtest3[0]
+data.drop(columns=["PC"], inplace=True)
+data.drop(columns=["tESt1"], inplace=True)
+new=data["Init"].str.split(':',n=-1,expand=True)
+data['InIt']=new[0]
+data['float after Init']=new[1]
+data['float after L']=new[2]
+data['fire2']=new[3]
+new=data['float after L'].str.split(' ',n=-1,expand=True)
+data['float after L!']=new[1]
+data['L or R3']=new[3]
+new=data['fire2'].str.split('(',n=-1,expand=True)
+data['float after L or R2']=new[0]
+data['master cap']=new[1]
+data.drop(columns=['float after L'],inplace=True)
+data.drop(columns=['fire2'],inplace=True)
+data.drop(columns=['Init'],inplace=True)
+new=data['floatsss'].str.split(':',n=-1,expand=True)
+data['AA']=new[0]
+data['BB']=new[1]
+data['CC']=new[2]
+data['DD']=new[3]
+new=data['CC'].str.split(' ',n=-1,expand=True)
+data['CC1']=new[1]
+data['CC2']=new[3]
+new=data['AA'].str.split(' ',n=-1,expand=True)
+data['AA1']=new[0]
+data['AA2']=new[1]
+data['AA3']=new[2]
+data['AA4']=new[3]
+data['AA5']=new[4]
+data['AA6']=new[5]
+new=data['DD'].str.split(' ',n=-1,expand=True)
+data['DD1']=new[1]
+data['DD2']=new[3]+' '+new[4]
+data.drop(columns=['CC'], inplace=True)
+data.drop(columns=['DD'],inplace=True)
+data.drop(columns=['AA'], inplace=True)
+data.drop(columns=['floatsss'], inplace=True)
+new=data['pressADJ'].str.split(' ',n=-1,expand=True)
+data['mbarr']=new[1]
+data['char']=new[2]
+data['lastfloat']=new[3]
+data['lastchar']=new[4]
+data['precent']=new[5]
+data.drop(columns=['pressADJ'], inplace=True)
+#split vm1 done
+#split fire done
+#split fire 2 done
+#split AA
+#split CC done 
+#merge columns
+
+
+
+
+df1=data[['Acids','Temp','Leakrate','LeakrateInt','something','P no acid', 'P no acid Int','P Gases','P Gases Int',
+        'TotalCO2','TotalCO2Int','ExP','ExPInt','After ExP','After ExP Int','Refre','L or R1','mBar',
+        'floatvalue','Pos','floatvalue2','Refre skipped','L or R2','mBar2','float after mbar','pos2','float after pos2',
+        'vm1a','vm1b','vm1 int',"pc","int after pc","Init init float",'InIt','float after Init',
+        'float after L!','L or R3','float after L or R2','master cap',
+        'AA1','AA2','AA3','AA4','AA5','AA6','BB','CC1','CC2','DD1','DD2',
+        'mbarr','char','lastfloat','lastchar','precent']]
+
+
+
+
+data= pd.read_excel("C:/Users/Darius Darvish/Downloads/190911_TSF_TSF(Reevaluated)(kiel) (1).xlsx")
+
+data.drop(columns=["Information"], inplace=True)
+
+
+result=[data,df1]
+
+final=pd.concat(result, axis=1,sort=False)
+
+
+
+
+
+export_csv = final.to_excel (r'C:\Users\Darius Darvish\AppData\Local\Programs\Python\Python38\port2_dataframe.xlsx', index = None, header=True)
+wb=openpyxl.load_workbook("port2_dataframe.xlsx")
+ws = wb['Sheet1']
+maxrow=ws.max_row
+
+
+
+for column in ws.iter_cols(min_col=41,max_col=41,max_row=maxrow):
+    for cell in column:
+            if '.' not in cell.value and cell.value!="float12":
+                ws.cell(cell.row,cell.column).offset(0,5).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=45,max_col=45,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,3).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=50,max_col=50,max_row=maxrow):
+    for cell in column:
+            if cell.value == "PressAdj":
+                ws.cell(cell.row,cell.column).offset(0,6).value=cell.value
+                #still have to delete cells
+                cell.value=None
+                
+for column in ws.iter_cols(min_col=47,max_col=47,max_row=maxrow):
+    for cell in column:
+            if cell.value == "Init int":
+                ws.cell(cell.row,cell.column).offset(0,3).value=cell.value
+                #still have to delete cells
+                cell.value=None   
+
+for column in ws.iter_cols(min_col=44,max_col=44,max_row=maxrow):
+    for cell in column:
+            if cell.value == "PC ":
+                ws.cell(cell.row,cell.column).offset(0,3).value=cell.value
+                #still have to delete cells
+                cell.value=None
+                
+for column in ws.iter_cols(min_col=38,max_col=38,max_row=maxrow):
+    for cell in column:
+            if "V" in cell.value:
+                ws.cell(cell.row,cell.column).offset(0,6).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=51,max_col=51,max_row=maxrow):
+    for cell in column:
+            if "L" in cell.value:
+                ws.cell(cell.row,cell.column).offset(0,11).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=49,max_col=49,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,2).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=52,max_col=52,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,11).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+
+for column in ws.iter_cols(min_col=53,max_col=53,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,11).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=54,max_col=54,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,11).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=55,max_col=55,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,11).value=cell.value
+                #still have to delete cells
+                cell.value=None
+                
+for column in ws.iter_cols(min_col=57,max_col=57,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,10).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=58,max_col=58,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,10).value=cell.value
+                #still have to delete cells
+                cell.value=None
+                
+for column in ws.iter_cols(min_col=59,max_col=59,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,10).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=60,max_col=60,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,10).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+for column in ws.iter_cols(min_col=61,max_col=61,max_row=maxrow):
+    for cell in column:
+            if cell.value != None:
+                ws.cell(cell.row,cell.column).offset(0,10).value=cell.value
+                #still have to delete cells
+                cell.value=None
+
+
+
+ws.delete_cols(49)
+ws.delete_cols(51)
+ws.delete_cols(51)
+ws.delete_cols(51)
+ws.delete_cols(51)
+
+ws.delete_cols(52)
+ws.delete_cols(52)
+ws.delete_cols(52)
+ws.delete_cols(52)
+ws.delete_cols(52)
+
+for column in ws.iter_cols(min_col=26,max_col=26,max_row=maxrow):
+    for cell in column:
+        if cell.value =="P gases":
+            currentrow=cell.row
+            cell.value=None
+            ws.cell(cell.row,cell.column).offset(0,1).value=None
+            for row in ws.iter_rows(min_row=currentrow,min_col=28,max_col=37,max_row=currentrow):
+                for cell in row:
+                    ws.cell(cell.row,cell.column).offset(0,-2).value=cell.value
+                    cell.value=None
+           
+                    
+wb.save('port2_dataframe.xlsx')
+    
+
+
+
+
+
+
