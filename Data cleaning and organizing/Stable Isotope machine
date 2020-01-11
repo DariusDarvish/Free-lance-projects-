@@ -261,6 +261,7 @@ for column in ws.iter_cols(min_col=54,max_col=54,max_row=maxrow):
                 ws.cell(cell.row,cell.column).offset(0,11).value=cell.value
                 #still have to delete cells
                 cell.value=None
+#
 
 for column in ws.iter_cols(min_col=55,max_col=55,max_row=maxrow):
     for cell in column:
